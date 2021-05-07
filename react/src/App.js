@@ -1,9 +1,11 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './style.scss';
 
-const Root = () => <h1>Hello World from React!</h1>;
-
-let container = document.getElementById("app");
+const Root = () => {
+  return <h3 className="title">Hello, React!</h3>;
+};
+let container = document.getElementById('app');
 let component = <Root />;
 
 ReactDOM.render(component, container);

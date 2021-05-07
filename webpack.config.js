@@ -1,31 +1,36 @@
-const path = require("path");
+const path = require('path');
+
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-  entry: "./react/src/App.js",
+  entry: './react/src/App.js',
   output: {
-    path: path.resolve(__dirname, "public/dist"),
-    filename: "main.js",
+    path: path.resolve(__dirname, 'public/dist'),
+    filename: 'main.js',
   },
   module: {
     rules: [
       {
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-react"],
-            plugins: [
-              "@babel/plugin-proposal-optional-chaining",
-              "@babel/plugin-proposal-nullish-coalescing-operator",
-            ],
-          },
-        },
+        test: /\.(js|jsx)$/,
+        exclude: '/node_modules',
+        use: ['babel-loader'],
       },
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
     ],
   },
-  mode: "development",
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'style.css',
+    }),
+    new CleanWebpackPlugin(),
+  ],
+  mode: 'development',
 };
