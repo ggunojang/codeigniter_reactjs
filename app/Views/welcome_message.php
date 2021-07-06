@@ -18,7 +18,7 @@
 <div id="app"></div>
 
 <!-- SCRIPTS -->
-<script src="dist/main.js" charset="utf-8"></script>
+<script src="dist/main.bundle.js" charset="utf-8"></script>
 <!-- --> 
 
 </body>
