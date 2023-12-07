@@ -1,13 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './style.scss';
 
-const Root = () => {
+const Main = () => {
   return (
     <div className="md:flex md:items-center md:justify-between">
       <div className="min-w-0 flex-1">
         <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
-          Back End Developer
+          Admin
         </h2>
       </div>
       <div className="mt-4 flex md:ml-4 md:mt-0">
@@ -26,8 +25,6 @@ const Root = () => {
       </div>
     </div>
   );
-};
-let container = document.getElementById('app');
-let component = <Root />;
+}
 
-ReactDOM.render(component, container);
+export default Main;

@@ -7,10 +7,13 @@ const PATH_SOURCE = path.join(__dirname, './react/src');
 const PATH_BUILD = path.join(__dirname, './public/dist');
 
 module.exports = {
-  entry: PATH_SOURCE + '/App.js',
+  entry: {
+    main: PATH_SOURCE + '/Main/index.js', // 클라이언트 앱의 엔트리 포인트
+    admin: PATH_SOURCE + '/Admin/index.js', // 관리자 앱의 엔트리 포인트
+  },
   output: {
     path: PATH_BUILD,
-    filename: 'main.bundle.js',
+    filename: '[name].bundle.js',
   },
   mode: 'development',
   resolve: {
@@ -27,7 +30,7 @@ module.exports = {
       /* css 로더 */
       {
         test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader','postcss-loader',],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
       },
       /* scss, sass 로더 */
       {
