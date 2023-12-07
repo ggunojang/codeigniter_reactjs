@@ -2,9 +2,13 @@ const webpack = require('webpack'); //빌트인 플러그인에 접근하기 위
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const PATH_SOURCE = path.join(__dirname, './react/src');
 const PATH_BUILD = path.join(__dirname, './public/dist');
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
   entry: {
@@ -13,9 +17,11 @@ module.exports = {
   },
   output: {
     path: PATH_BUILD,
-    filename: '[name].bundle.js',
+    filename: isProduction ? '[name].[contenthash].bundle.js' : '[name].bundle.js',
+    publicPath: '/dist/',
   },
-  mode: 'development',
+  mode: isProduction ? 'production' : 'development',
+  devtool: isProduction ? 'source-map' : 'cheap-module-source-map',
   resolve: {
     modules: [path.join(__dirname, 'src'), 'node_modules'],
     extensions: ['.js', '.jsx', '.css', '.scss', '.json'],
@@ -42,8 +48,28 @@ module.exports = {
   plugins: [
     new webpack.ProgressPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'style.css',
+      filename: '[name].style.css', // '[name]' 플레이스홀더를 사용
     }),
     new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'public', 'template.html'),
+      filename: path.join(__dirname, 'app/Views/admin', 'index.php'), // CodeIgniter의 View 경로에 맞게 설정
+      chunks: ['admin'], // 'admin' 엔트리 포인트에 해당하는 청크만 포함
+      inject: 'body', // 스크립트를 body 태그 끝에 삽입
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'public', 'template.html'),
+      filename: path.join(__dirname, 'app/Views/main', 'index.php'), // CodeIgniter의 View 경로에 맞게 설정
+      chunks: ['main'], // 'main' 엔트리 포인트에 해당하는 청크만 포함
+      inject: 'body', // 스크립트를 body 태그 끝에 삽입
+    }),
   ],
+  optimization: {
+    minimize: isProduction,
+    minimizer: [new TerserPlugin()],
+    splitChunks: {
+      chunks: 'all',
+      name: 'common', // 공통 청크의 이름
+    },
+  },
 };
