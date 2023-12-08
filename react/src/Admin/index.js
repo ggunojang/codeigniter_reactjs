@@ -4,4 +4,5 @@ import ReactDOM from 'react-dom';
 import AdminApp from './App'; // App 컴포넌트 임포트
 import './Css/style.scss';
 
-ReactDOM.render(<AdminApp />, document.getElementById('app'));
+const root = ReactDOM.createRoot(document.getElementById('app'));
+root.render(<AdminApp />);

@@ -7,9 +7,8 @@
     "extends": [
         "plugin:react/recommended",
         "airbnb",
-        "prettier/@typescript-eslint",
         "plugin:prettier/recommended",
-        "prettier/react"
+        "prettier"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -54,18 +53,16 @@
                 "json": "never"
             }
         ],
+        "react/function-component-definition": [2, { "namedComponents": "arrow-function" }],
         "react/jsx-props-no-spreading": "off",
         "jsx-a11y/click-events-have-key-events": 0,
         "jsx-a11y/no-static-element-interactions": 0,
         "no-plusplus": "off",
         "import/prefer-default-export": "off",
-        "@typescript-eslint/no-unused-vars": "warn",
         "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars-experimental": "warn",
         "react/js-no-target-blank": "off",
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
-        "@typescript-eslint/explicit-function-return-type": "off",
         "no-use-before-define": [
             "off",
             {
